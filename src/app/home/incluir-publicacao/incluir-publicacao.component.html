@@ -1,0 +1,130 @@
+<div
+  class="modal fade"
+  id="publicacaoModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="publicacaoModalLabel"
+  aria-hidden="false"
+>
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <!-- pendente -->
+    <div
+      class="modal-content"
+      *ngIf="
+        progresso.progressoUpload === 'pendente' ||
+        progresso.progressoUpload === undefined
+      "
+    >
+      <form [formGroup]="formulario" (submit)="publicar()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="publicacaoModalLabel">
+            Criar uma publicação
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <textarea
+              placeholder="Título da publicação"
+              class="form-control"
+              rows="3"
+              formControlName="titulo"
+            ></textarea>
+          </div>
+          <div *ngIf="imagens === undefined">
+            <mat-icon
+              style="font-size: 36px; color: #007bff; cursor: pointer;"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Selecione uma foto para o upload"
+              (click)="popupImage()"
+              >add_photo_alternate</mat-icon
+            >
+          </div>
+          <div id="imgPreview" style="overflow: auto"></div>
+          <input
+            type="file"
+            class="custom-file"
+            id="customFile"
+            accept="image/*"
+            (change)="preparaImagemUpload($event)"
+            style="display: none"
+          />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Publicar</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- andamento -->
+    <div
+      class="modal-content"
+      *ngIf="progresso.progressoUpload === 'andamento'"
+    >
+      <div class="modal-header">
+        <h5 class="modal-title" id="publicacaoModalLabel">
+          Publicação em andamento
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            aria-valuenow="0"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+        Progresso: {{ progresso.porcentagemUpload }}%
+      </div>
+    </div>
+
+    <!-- concluido -->
+    <div
+      class="modal-content"
+      *ngIf="progresso.progressoUpload === 'concluido'"
+    >
+      <div class="modal-header">
+        <h5 class="modal-title" id="publicacaoModalLabel">
+          Publicação concluída
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Sua publicação foi realizada com sucesso!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

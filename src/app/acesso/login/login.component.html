@@ -1,0 +1,42 @@
+<div class="card" style="width: 20rem;" [@animacao-erro]="erro === undefined ? 'void' : 'erro'">
+  <div class="card-body">
+    <div class="card-title"></div>
+
+    <form [formGroup]="formulario" novalidate (submit)="autenticar()">
+      <div class="form-group">
+        <input type="email"
+               class="form-control"
+               placeholder="E-mail"
+               formControlName="email"
+               required
+               email
+               (change)="erro = undefined" />
+      </div>
+      <div class="form-group">
+        <input type="password"
+               class="form-control"
+               placeholder="Senha"
+               formControlName="senha"
+               required
+               minlength="6"
+               (change)="erro = undefined" />
+      </div>
+      <button [disabled]="formulario.invalid"
+              type="submit"
+              class="btn btn-primary btn-sm btn-block">Entrar</button>
+    </form>
+    <div [hidden]="erro === undefined">
+      <hr />
+      <div class="alert alert-danger" role="alert">
+          <strong>Erro!</strong> {{ erro }}
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<div class="card" style="width: 20rem;">
+  <div class="card-body">
+    <p class="card-text">Não tem uma conta? <a href="#"
+         (click)="exibirPainelCadastro()" class="card-link">Cadastre-se</a></p>
+  </div>
+</div>
