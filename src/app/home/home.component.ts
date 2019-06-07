@@ -9,7 +9,7 @@ import { AutenticacaoService } from './../autenticacao.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('publicacoes') public publicacoes: any;
+  @ViewChild('publicacoes', { static: true }) public publicacoes: any;
 
   constructor(private autenticacao: AutenticacaoService, public progresso: ProgressoService) {}
 
